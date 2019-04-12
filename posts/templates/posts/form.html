@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+{% if request.resolver_match.url_name == 'create' %}
+    <h1>NEW</h1>
+{% else %}
+    <h1>EDIT</h1>
+{% endif %}
+
+<form action = "" method = 'POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form post_form %}
+    <button type="submit" class="btn btn-danger">Submit</button>
+    <button type="reset" class="btn btn-warning">cancel</button>
+    <a href="{% url 'posts:list' %}" class="btn btn-success">Back</a>
+</form>
+{% endblock %}
