@@ -1,15 +1,33 @@
-<div class="card" style="width: 18rem;">
-  {% if post.image %}
-    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.image }}">
-  {% else %}
-    <img src="#" class="card-img-top" alt="NO_IMAGE">
-  {% endif %}
-  <div class="card-body">
-    <p class="card-text">{{ post.content }}</p>
-    <a href = "{% url 'posts:update' post.pk %}" class="btn btn-warning">수정</a>
-    <form action="{% url 'posts:delete' post.pk %}" method='POST' style="display:inline;">
-        {% csrf_token %}
-        <input type="submit" value="삭제" class="btn btn-danger">
-    </form>
+<div class="col-6 my-3">
+  <div class="card" >
+    {% if post.image_set %}
+      <div id="post{{ post.pk }}" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          {% for image in post.image_set.all %}
+            <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+              <img src="{{ image.file.url }}" class="d-block w-100" alt="{{ image.file }}">
+            </div>
+          {% endfor %}
+        </div>
+        <a class="carousel-control-prev" href="#post{{ post.pk }}" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#post{{ post.pk }}" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    {% else %}
+      <img src="#" alt="no image">
+    {% endif %}
+    <div class="card-body">
+      <p class="card-text">{{ post.content }}</p>
+      <a href = "{% url 'posts:update' post.pk %}" class="btn btn-warning">수정</a>
+      <form action="{% url 'posts:delete' post.pk %}" method='POST' style="display:inline;">
+          {% csrf_token %}
+          <input type="submit" value="삭제" class="btn btn-danger">
+      </form>
+    </div>
   </div>
 </div>

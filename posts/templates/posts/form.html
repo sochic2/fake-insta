@@ -11,6 +11,9 @@
 <form action = "" method = 'POST' enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form post_form %}
+    {% if image_form %}
+        {% bootstrap_form image_form show_label=False %}
+    {% endif %}
     <button type="submit" class="btn btn-danger">Submit</button>
     <button type="reset" class="btn btn-warning">cancel</button>
     <a href="{% url 'posts:list' %}" class="btn btn-success">Back</a>
