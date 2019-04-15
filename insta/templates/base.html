@@ -15,6 +15,7 @@
     
     {% include 'posts/_nav.html' %}
     <div class="container">
+        <h1>현재 유저 : {{ user.username }}</h1>
         {% block content %}    
         {% endblock %}
     </div>
