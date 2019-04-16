@@ -25,7 +25,17 @@
     {% else %}
       <img src="#" alt="no image">
     {% endif %}
+    
     <div class="card-body">
+      <a href="{% url 'posts:like' post.pk %}" class="card-link">
+        {% if user in post.like_users.all %}
+          <i class="fas fa-heart fa-lg" style="color:crimson"></i>
+        {% else %}
+          <i class="fas fa-heart fa-lg" style="color:black"></i>
+        {% endif %}
+      </a>
+    
+      <p class="card-text">{{ post.like_users.count }}</p>
       <p class="card-text">{{ post.content }}</p>
     
       {% if request.user == post.user %}
@@ -51,16 +61,17 @@
     </div>
       
       <div class="card-footer">
+     
         {% if user.is_authenticated %}
           <form action = "{% url 'posts:comment_create' post.pk %}" method = "POST"> 
             {% csrf_token %}
             {{ form }}
             <input type="submit" value="작성" class="btn-light"/>
           </form>
-      
         {% else %}
           <a href="{% url 'accounts:login' %}" class="card-link">댓글을 작성하려면 로그인 하세요.</a>
         {% endif %}
+  
       </div>
   </div>
 </div>
