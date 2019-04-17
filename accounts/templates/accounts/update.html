@@ -12,11 +12,12 @@
     {% endif %}
     <button type="submit" class="btn btn-danger">Submit</button>
     <button type="reset" class="btn btn-warning">cancel</button>
-    <a href="{% url 'posts:list' %}" class="btn btn-success">Back</a>
+    <a href="{% url 'people' user.username %}" class="btn btn-success">Back</a>
 </form>
 <hr>
 <form = action="{% url 'accounts:delete' %}" method="POST" onsubmit="return confirm('R U SURE?');">
     {% csrf_token %}
     <button type="submit" class="btn btn-danger">회원탈퇴</button>
 </form>
+
 {% endblock %}
