@@ -4,6 +4,7 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
+    path('follow/<int:user_pk>/', views.follow, name='follow'),
     path('profile/update/', views.profile_update, name='profile_update'),
     path('password/', views.password, name='password'),
     path('delete/', views.delete, name='delete'),
