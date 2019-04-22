@@ -28,9 +28,25 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+
+AUTHENTICATION_BACKENDS = (
+ 
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    # 'allauth.account.auth_backends.AuthenticationBackend',
+
+)
+
+
 # Application definition
 
 INSTALLED_APPS = [
+       
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'imagekit',
     'bootstrap4',
     'django_extensions',
@@ -42,7 +58,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'allauth.socialaccount.providers.kakao',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,4 +146,4 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 AUTH_USER_MODEL = 'accounts.User'  # 기본 user 모델을 오버라이드 하는 과정..
-
+LOGIN_REDIRECT_URL = 'posts:list'
